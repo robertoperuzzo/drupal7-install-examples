@@ -15,11 +15,15 @@ function add_taxonomy_terms_update_7100() {
       'Tecnologie marittime',
       );
 
+    // Create these terms only if they don't exist.
     foreach ($items as $name) {
-      $newterm = new stdClass();
-      $newterm->name = $name;
-      $newterm->vid = $vocabulary->vid;
-      taxonomy_term_save(($newterm);
+      $terms = taxonomy_get_term_by_name($name , $vocabulary_machinename);
+      if (empty($terms)) {
+        $newterm = new stdClass();
+        $newterm->name = $name;
+        $newterm->vid = $vocabulary->vid;
+        taxonomy_term_save(($newterm);
+      }
     }
   }
 }
