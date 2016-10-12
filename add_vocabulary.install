@@ -1,0 +1,19 @@
+<?php
+/**
+ * Add a new vocabulary.
+ */
+function add_vocabulary_update_7100() {
+  $vocabulary_machinename = 'my_vocabulary';
+  // Do not create the vocabulary if it already exists.
+  $vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary_machinename);
+  if (!$vocabulary) {
+    // Add new vocabulary for Sharing3fvg.
+    $vocabulary = new stdClass();
+    $vocabulary->name = 'My vocabulary';
+    $vocabulary->machine_name = $vocabulary_machinename;
+    $vocabulary->description = t('This is my new vocabulary');
+    $vocabulary->module = 'taxonomy';
+
+    taxonomy_vocabulary_save($vocabulary);
+  }
+}
