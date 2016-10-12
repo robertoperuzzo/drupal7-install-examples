@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * Helper to replace default field base image.
+ *
+ * @param $filename
+ * @param $source
+ */
+function _add_default_image_file_default_image($filename, $source) {
+  // Set the destination dir.
+  $destination_dir = 'public://default_images';
+
+  // Create new file object and get new fid.
+  if (file_exists($source)
+    && file_prepare_directory($destination_dir, FILE_CREATE_DIRECTORY)) {
+
+    $file = new stdClass;
+    $file->filename = $filename;
+    $file->timestamp = REQUEST_TIME;
+    $file->uri = $source;
+    $file->filemime = file_get_mimetype($source);
+    $file->uid = 1;
+    $file->status = 1;
+    $file = file_copy($file, $destination_dir, FILE_EXISTS_REPLACE);
+    $fid = $file->fid;
+
+    // Set the default_image_ft variable.
+    variable_set('mezzi_default', $fid);
+    watchdog('tmsafe_automezzi', 'Setted mezzi_default default image.');
+  }
+}
+
+/**
+ * Upload the default image for field_image.
+ */
+function add_default_image_file_update_7100() {
+  // Image file name.
+  $filename = 'my_image.jpg';
+  
+  /*
+  You have to put your default image into the dir
+  your_module/images.
+  */
+  $source = drupal_get_path('module', 'add_default_image_file')
+    . '/images/' . $filename;
+    
+  // Replace default image for $field_name field base.
+  _add_default_image_file_default_image($filename, $source);
+}
