@@ -25,7 +25,7 @@ function _add_default_image_file_default_image($filename, $source) {
     $fid = $file->fid;
 
     // Set the default_image_ft variable.
-    variable_set('mezzi_default', $fid);
+    variable_set('default_image_var_name', $fid);
     watchdog('add_default_image_file', 'Setted field_image default image.');
   }
 }
