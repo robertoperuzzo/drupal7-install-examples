@@ -26,7 +26,7 @@ function _add_default_image_file_default_image($filename, $source) {
 
     // Set the default_image_ft variable.
     variable_set('mezzi_default', $fid);
-    watchdog('tmsafe_automezzi', 'Setted mezzi_default default image.');
+    watchdog('add_default_image_file', 'Setted field_image default image.');
   }
 }
 
