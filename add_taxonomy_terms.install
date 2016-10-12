@@ -1,0 +1,25 @@
+/**
+ * Add taxonomy terms for an existing vocabulary.
+ */
+function add_taxonomy_terms_update_7100() {
+  $vocabulary_machinename = 'my_vocabulary';
+  // Add terms if vocabulary exists.
+  $vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary_machinename);
+  if (!$vocabulary) {
+    // The items' list I want to create.
+    $items = array(
+      'Agroalimentare',
+      'Cultura, creatività e turismo',
+      'Metalmeccanica e Sistema casa',
+      'Smart health',
+      'Tecnologie marittime',
+      );
+
+    foreach ($items as $name) {
+      $newterm = new stdClass();
+      $newterm->name = $name;
+      $newterm->vid = $vocabulary->vid;
+      taxonomy_term_save(($newterm);
+    }
+  }
+}
