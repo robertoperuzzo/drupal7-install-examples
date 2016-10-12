@@ -26,7 +26,7 @@ function _add_default_image_file_default_image($filename, $source) {
 
     // Set the default_image_ft variable.
     variable_set('default_image_var_name', $fid);
-    watchdog('add_default_image_file', 'Setted field_image default image.');
+    watchdog('add_default_image_file', 'Uploaded and setted the default image.');
   }
 }
 
@@ -34,16 +34,18 @@ function _add_default_image_file_default_image($filename, $source) {
  * Upload the default image for field_image.
  */
 function add_default_image_file_update_7100() {
-  // Image file name.
-  $filename = 'my_image.jpg';
+  if (module_exists('default_image_ft')) {
+    // Image file name.
+    $filename = 'my_image.jpg';
   
-  /*
-  You have to put your default image into the dir
-  your_module/images.
-  */
-  $source = drupal_get_path('module', 'add_default_image_file')
-    . '/images/' . $filename;
+    /*
+    You have to put your default image into the dir
+    your_module/images.
+    */
+    $source = drupal_get_path('module', 'add_default_image_file')
+      . '/images/' . $filename;
     
-  // Replace default image for $field_name field base.
-  _add_default_image_file_default_image($filename, $source);
+    // Replace default image for $field_name field base.
+    _add_default_image_file_default_image($filename, $source);
+  }
 }
