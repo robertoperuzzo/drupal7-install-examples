@@ -34,6 +34,9 @@ function _add_default_image_file_default_image($filename, $source) {
  * Upload the default image for field_image.
  */
 function add_default_image_file_update_7100() {
+  /*
+  This code works only if default_image_ft is enabled.
+  */
   if (module_exists('default_image_ft')) {
     // Image file name.
     $filename = 'my_image.jpg';
