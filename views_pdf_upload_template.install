@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * Helper function for uploading PDF templates files.
+ *
+ * @param  string $source      source directory pattern for glob() function.
+ * @param  string $destination destination directory.
+ */
+function _views_pdf_upload_template_upload_templates($source, $destination) {
+  foreach (glob($source) as $filename) {
+    if (file_prepare_directory($destination, FILE_CREATE_DIRECTORY)) {
+      $exploded_filename = explode('/', $filename);
+
+      $newfile = drupal_realpath($destination) . '/'
+        . $exploded_filename[count($exploded_filename) - 1];
+
+      if (!copy($filename, $newfile)) {
+        watchdog('_views_pdf_upload_template_upload_templates', 'Failed to copy @filename', array(
+          '@filename' => $filename), WATCHDOG_ERROR);
+      }
+      else {
+        watchdog('_views_pdf_upload_template_upload_templates', 'Uploaded @filename', array(
+          '@filename' => $filename));
+      }
+    }
+  }
+}
+
+/**
+ * Upload Views PDF templates files.
+ */
+function views_pdf_upload_template_update_7100() {
+  /*
+  You have to create the dir /templates/pdf into your
+  module path.
+  */
+  $source = drupal_realpath(
+    drupal_get_path('module', 'views_pdf_upload_template'))
+    . '/templates/pdf/*.pdf';
+  $destination = variable_get('views_pdf_template_stream',
+    'public://views_pdf_templates');
+
+  _views_pdf_upload_template_upload_templates($source, $destination);
+}
