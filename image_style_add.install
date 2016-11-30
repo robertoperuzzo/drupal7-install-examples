@@ -4,19 +4,21 @@
  * Add new image style preset.
  */
 function image_style_add_update_7100() {
-  // Image style 90x90 scale and crop.
-  $style = image_style_save(array(
-    'name' => '90x90',
-    'isid' => '90_90',
-    )
-  );
-  $effect = array(
-    'name' => 'image_scale_and_crop',
-    'data' => array(
-      'width' => 90,
-      'height' => 90,
-    ),
-    'isid' => $style['isid'],
-  );
-  image_effect_save($effect);
+  $style = image_style_load('90x90');
+  if (empty($style)) {
+    $style = image_style_save(array(
+      'name' => '90x90',
+      'isid' => '90_90',
+      )
+    );
+    $effect = array(
+      'name' => 'image_scale_and_crop',
+      'data' => array(
+        'width' => 90,
+        'height' => 90,
+      ),
+      'isid' => $style['isid'],
+    );
+    image_effect_save($effect);
+  }
 }
