@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function add_database_table_schema() {
+  $schema['add_database_table'] = array(
+    'description' => 'The base table for this example.',
+    'fields' => array(
+      'adt_id' => array(
+        'description' => 'The primary identifier.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        ),
+      'adt_timestamp' => array(
+        'description' => 'The Unix timestamp when the measure was done.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        ),
+      ),
+    'indexes' => array(
+      'adt_timestamp'  => array('adt_timestamp'),
+    ),
+    'primary key' => array('adt_id'),
+  );
+  return $schema;
+}
