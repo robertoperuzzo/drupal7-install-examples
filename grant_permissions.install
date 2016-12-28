@@ -2,7 +2,7 @@
  * Grant 'access toolbar', 'use text format full_html',
  * 'use text format filtered_html'permissions for sharing3fvg role.
  */
-function grant_permission_update_7001() {
+function grant_permissions_update_7001() {
   $permissions = array(
     'access toolbar',
     'use text format full_html',
