@@ -1,0 +1,19 @@
+<?php 
+
+function remove_field_update_7102() {
+  field_delete_field('field_sede_ind_nomecogn');
+  field_delete_field('field_ref_ruolo');
+  field_delete_field('field_sede_ind_tel_ref');
+  field_delete_field('field_sede_ind_cell');
+  field_delete_field('field_sede_ind_mail');
+  field_delete_field('group_sede_ind_ref_cl');
+  if ($group = field_group_load_field_group(
+    'group_sede_ind_ref_cl',
+    'field_collection_item',
+    'field_cliente_sede_ind',
+    'form')) {
+    ctools_include('export');
+    field_group_group_export_delete($group, FALSE);
+  }
+  field_purge_batch(1);
+}
